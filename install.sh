@@ -32,7 +32,7 @@ sleep 0
 else
 cd ~
 {
-git clone https://github.com/entynetproject/ghost.git
+git clone https://github.com/gaidis18/Zoomby-Framework
 } &> /dev/null
 fi
 sleep 0.5
