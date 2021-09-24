@@ -26,21 +26,6 @@ then
    exit
 fi
 
-if [[ -d ~/zoomby ]]
-then
-sleep 0
-else
-cd ~
-{
-git clone https://github.com/gaidis18/Zoomby-Framework
-} &> /dev/null
-fi
-sleep 0.5
-clear
-sleep 0.5
-cd ~/zoomby
-echo
-
 sleep 1
 echo -e ""$GN"["$RS"+"$GN"]"$CE" Installing dependencies..."$C""
 sleep 1
@@ -83,15 +68,12 @@ xbps-install -y android-tools
 } &> /dev/null
 
 {
-cd ~/zoomby/bin
-cp ghost /usr/local/bin
-chmod +x /usr/local/bin/zoomby
-cp zoomby /bin
-chmod +x /bin/zoomby
-cp ghost /data/data/com.termux/files/usr/bin
-chmod +x /data/data/com.termux/files/usr/bin/zoomby
+chmod +x zoomby
 } &> /dev/null
+
 
 sleep 1
 echo -e ""$GN"["$RS"+"$GN"]"$CE" Successfully installed!"$C""
 sleep 1
+
+
