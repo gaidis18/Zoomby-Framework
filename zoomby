@@ -89,8 +89,8 @@ page_1 = '''
  {2}New Features{2}   
  
  {1}[{2}28{1}]{2} Access a website by URL
- {1}[{2}28{1}]{2} Phone call
- 
+ {1}[{2}29{1}]{2} Phone call
+ {1}[{2}30{1}]{2} Contact List Print
  
 '''.format(GNSL, REDL, WHSL)
 
@@ -159,7 +159,6 @@ def main():
 
             os.system("adb -s  "+device_name+" install "+apk_location)
             
-            os.chdir(g)
 
             print(GNSL  +  "Apk has been installed.")
             option = input(ENDL + "zoombie"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
@@ -182,7 +181,6 @@ def main():
 
             os.system("adb -s "+device_name+" pull /sdcard/screen.mp4 "+place_location)
             
-            os.chdir(g)
 
             option = input(ENDL + "zoombie"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
@@ -202,8 +200,6 @@ def main():
 
             os.system("adb -s "+device_name+" pull /sdcard/screen.png "+place_location)
             
-            os.chdir(g)
-
             option = input(ENDL + "zoombie"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
         elif option == '8':
@@ -232,7 +228,6 @@ def main():
 
             os.system("adb -s "+device_name+" pull "+file_location+" "+place_location)
  
-            os.chdir(g)
 
             option = input(ENDL + "zoomby"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
@@ -254,7 +249,7 @@ def main():
             print(("     "+connect))
             print(("    {1}[{0}+{1}]{2} Enter a package name.").format(REDL, GNSL, WHSL))
             package_name = input("    "+arrow + " zoomby"+GNSL+"("+REDL + "app_delete" + GNSL + ")"+ENDL + "> ")
-            os.system("adb -s "+device_name+" unistall "+package_name)
+            os.system("adb -s "+device_name+" uninstall "+package_name)
             option = input(ENDL + "zoomby"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
         elif option == '12':
@@ -323,7 +318,6 @@ def main():
                 os.system("adb -s "+device_name+" shell "+"su -c 'cp /data/misc/wifi/wpa_supplicant.conf /sdcard/'")
                 os.system("adb -s "+device_name+" pull /sdcard/wpa_supplicant.conf "+location)
 
-                os.chdir(g)
 
                 option = input(ENDL + "zoomby"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
@@ -365,9 +359,7 @@ def main():
             w = os.environ['OLDPWD']
             os.chdir(w)
 
-            os.system("adb -s " +device_name+" pull "+path+" "+location)
-            
-            os.chdir(g)
+            os.system("adb -s " +device_name+" pull "+path+" "+location)  
             
             option = input(ENDL + "zoomby"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
 
@@ -555,9 +547,29 @@ def main():
         elif option == '29':
             print(("\n{1}[{0}+{1}]{2} Enter a phone number.").format(REDL, GNSL, WHSL))
             p_number = input (arrow+" zoomby"+GNSL+"("+REDL + "phone_call" + GNSL + ")"+ENDL + "> ")
-            os.system("adb -s "+device_name+ " shell am start -a android.intent.action.CALL -d tel:"+p_number)
+            os.system("adb -s "+device_name+ " shell am start -a android.intent.action.CALL -d tel:"+p_number) 
             
             option = input(ENDL + "zoomby"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
+        
+        elif option == '30': 
+            os.system("adb -s "+device_name+ " shell am start -a android.intent.action.VIEW content://contacts/people/")
+            try:
+                device_name
+            except:
+                print(("{1}[{0}+{1}]{2} No devices connected yet.").format(REDL, GNSL, WHSL))
+                main()
+            os.system("adb -s "+device_name+" shell screencap /sdcard/screen.png")
+            print(("     "+connect))
+            print(("    {1}[{0}+{1}]{2} Enter where you would like to save the screenshot from contacts list.").format(REDL, GNSL, WHSL))
+            place_location = input("    "+arrow + " zoomby"+GNSL+"("+REDL + "contactslist_screenshot" + GNSL + ")"+ENDL + "> ")
+
+            w = os.environ['OLDPWD']
+            os.chdir(w)
+
+            os.system("adb -s "+device_name+" pull /sdcard/screen.png "+place_location)
+
+            option = input(ENDL + "zoombie"+GNSL+"("+REDL + "main_menu" + GNSL + ")"+ENDL + "> ")
+        	
         
         else:
             print("zoomby: error: invalid command")
